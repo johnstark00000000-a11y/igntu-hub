@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGNTU Dynamic Vibe Hub ✨</title>
+    <!-- PWA Manifest & Theme Integration -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#ff758c">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3076/3076753.png">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #fff0f3;
+            --nav-bg: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            --card-shadow: 0 6px 20px rgba(255, 117, 140, 0.12);
+            --btn-bg: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            --text-color: #4a2e35;
+            --accent-color: #ff416c;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            color: var(--text-color); 
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .navbar { 
+            background: var(--nav-bg); 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+            transition: background 0.4s ease;
+        }
+
+        .card { 
+            border-radius: 16px; 
+            border: none; 
+            box-shadow: var(--card-shadow); 
+            transition: transform 0.2s, box-shadow 0.2s, background 0.4s; 
+            background: #ffffff; 
+        }
+        .card:hover { transform: translateY(-3px); }
+
+        .nav-pills .nav-link { 
+            font-weight: 600; 
+            font-size: 0.85rem; 
+            margin: 3px; 
+            border-radius: 10px; 
+            transition: all 0.3s; 
+            cursor: pointer;
+        }
+
+        .btn-custom { 
+            background: var(--btn-bg); 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-weight: 600; 
+            transition: opacity 0.2s;
+        }
+        .btn-custom:hover { opacity: 0.9; color: white; }
+        .form-control { border-radius: 10px; }
+        .form-control:focus { box-shadow: 0 0 0 0.25rem rgba(255, 65, 108, 0.25); }
+
+        .dynamic-badge {
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 20px;
+            padding: 6px 12px;
+        }
+    </style>
+</head>
+<body id="bodyTag">
+    <nav class="navbar navbar-dark py-3" id="navBar">
+        <div class="container">
+            <span class="navbar-brand fw-bold fs-4" id="navTitle"><i class="fa-solid fa-heart me-2 text-white"></i>IGNTU Vibe Hub ✨</span>
+            <span class="text-white small fw-bold" id="navSubtitle"><i class="fa-solid fa-sparkles me-1"></i>PWA Native App Ready</span>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <!-- Navigation Tabs -->
+        <div class="card p-3 mb-4 shadow-sm">
+            <ul class="nav nav-pills justify-content-center gap-1 flex-wrap" id="pills-tab" role="tablist">
+                <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-radar" onclick="setTheme('love')"><i class="fa-solid fa-radar me-1"></i> Love Radar</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-quotes" onclick="setTheme('quotes')"><i class="fa-solid fa-quote-left me-1"></i> Quotes</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-midnight" onclick="setTheme('midnight')"><i class="fa-solid fa-moon me-1"></i> Midnight</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-fest" onclick="setTheme('fest')"><i class="fa-solid fa-camera-retro me-1"></i> Fest Photo</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-memes" onclick="setTheme('memes')"><i class="fa-solid fa-face-laugh-squint me-1"></i> Memes</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-mess" onclick="setTheme('mess')"><i class="fa-solid fa-utensils me-1"></i> Mess Battle</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-bunk" onclick="setTheme('bunk')"><i class="fa-solid fa-person-running me-1"></i> Bunk Buddy</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-stationery" onclick="setTheme('stationery')"><i class="fa-solid fa-book me-1"></i> Stationery</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-market" onclick="setTheme('market')"><i class="fa-solid fa-store me-1"></i> Marketplace</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-vault" onclick="setTheme('vault')"><i class="fa-solid fa-file-lines me-1"></i> Notes Vault</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-confess" onclick="setTheme('confess')"><i class="fa-solid fa-mask me-1"></i> Confessions</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-canteen" onclick="setTheme('canteen')"><i class="fa-solid fa-burger me-1"></i> Canteen</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-lost" onclick="setTheme('lost')"><i class="fa-solid fa-box-archive me-1"></i> Lost & Found</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-hostel" onclick="setTheme('hostel')"><i class="fa-solid fa-wrench me-1"></i> Hostel Issues</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-carpool" onclick="setTheme('carpool')"><i class="fa-solid fa-car me-1"></i> Carpool</button></li>
+            </ul>
+        </div>
+
+        <div class="tab-content" id="pills-tabContent">
+            <!-- 1. Radar -->
+            <div class="tab-pane fade show active" id="tab-radar">
+                <div class="card p-4 mb-4 border-start border-danger border-4">
+                    <h5 class="fw-bold mb-3 text-danger"><i class="fa-solid fa-heart-pulse me-1"></i> Drop Live Romantic/Meetup Pin with GPS</h5>
+                    <form action="/add/radar" method="POST" class="row g-3">
+                        <div class="col-md-3"><input type="text" name="vibe" class="form-control" placeholder="Vibe (e.g., Coffee & Chat)" required></div>
+                        <div class="col-md-3"><input type="text" name="location" class="form-control" placeholder="Landmark (e.g., Canteen)" required></div>
+                        <div class="col-md-2"><input type="text" name="time" class="form-control" placeholder="Duration (30 mins)" required></div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" id="lat" name="lat" class="form-control" placeholder="Lat" required>
+                                <input type="text" id="lng" name="lng" class="form-control" placeholder="Lng" required>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-outline-danger w-100 h-100" onclick="getLocation()" title="Get GPS"><i class="fa-solid fa-location-crosshairs"></i></button>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <button class="btn btn-custom w-100 py-2" type="submit"><i class="fa-solid fa-paper-plane me-1"></i> Broadcast Live Love Pin ✨</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for r in data.radar %}
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 border-start border-danger border-4 d-flex flex-column">
+                            <span class="dynamic-badge mb-2 align-self-start">{{ r.vibe }}</span>
+                            <h6 class="fw-bold text-dark mb-1"><i class="fa-solid fa-location-dot me-1 text-danger"></i>{{ r.location }}</h6>
+                            <p class="text-muted small mb-1">⏳ {{ r.time }}</p>
+                            <p class="text-secondary small mb-2 font-monospace"><i class="fa-solid fa-globe me-1"></i>{{ r.lat }}, {{ r.lng }}</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center pt-2 border-top">
+                                <small class="text-muted">By {{ r.user }}</small>
+                                <a href="https://maps.google.com/?q={{ r.lat }},{{ r.lng }}" target="_blank" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-directions me-1"></i>Map</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 2. Quotes -->
+            <div class="tab-pane fade" id="tab-quotes">
+                <div class="card p-4 mb-4 border-start border-warning border-4">
+                    <h5 class="fw-bold mb-3 text-warning"><i class="fa-solid fa-microphone-lines me-1"></i> Drop Professor Quote</h5>
+                    <form action="/add/quotes" method="POST" class="row g-3">
+                        <div class="col-md-7"><input type="text" name="quote" class="form-control" placeholder="What did the professor say?" required></div>
+                        <div class="col-md-4"><input type="text" name="professor" class="form-control" placeholder="Professor / Dept Name" required></div>
+                        <div class="col-md-1"><button class="btn btn-custom w-100" type="submit"><i class="fa-solid fa-check"></i></button></div>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for q in data.quotes %}
+                    <div class="col-md-6">
+                        <div class="card p-4 bg-white border-start border-warning border-4">
+                            <h5 class="text-dark fw-bold mb-2">“{{ q.quote }}”</h5>
+                            <small class="text-muted">— {{ q.professor }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 3. Midnight -->
+            <div class="tab-pane fade" id="tab-midnight">
+                <div class="card p-4 mb-4 border-start border-primary border-4">
+                    <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-moon me-1"></i> List Midnight Delivery</h5>
+                    <form action="/add/midnight" method="POST" class="row g-3">
+                        <div class="col-md-4"><input type="text" name="item" class="form-control" placeholder="Item (Maggi/Coffee)" required></div>
+                        <div class="col-md-3"><input type="text" name="seller" class="form-control" placeholder="Your Name" required></div>
+                        <div class="col-md-3"><input type="text" name="hostel" class="form-control" placeholder="Hostel & Room" required></div>
+                        <div class="col-md-1"><input type="number" name="price" class="form-control" placeholder="₹" required></div>
+                        <div class="col-md-1"><button class="btn btn-custom w-100" type="submit"><i class="fa-solid fa-check"></i></button></div>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for mc in data.midnight %}
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 border-start border-primary border-4">
+                            <h6 class="fw-bold text-dark">{{ mc.item }}</h6>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-user me-1"></i>{{ mc.seller }} &bull; {{ mc.hostel }}</p>
+                            <span class="text-primary fw-bold fs-5">₹{{ mc.price }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 4. Fest -->
+            <div class="tab-pane fade" id="tab-fest">
+                <div class="card p-4 mb-4 border-start border-info border-4">
+                    <h5 class="fw-bold mb-3 text-info"><i class="fa-solid fa-camera me-1"></i> Share Fest Highlight</h5>
+                    <form action="/add/fest" method="POST" class="input-group">
+                        <input type="text" name="caption" class="form-control" placeholder="Describe event highlight..." required>
+                        <input type="text" name="uploader" class="form-control" placeholder="Your Name" required style="max-width: 200px;">
+                        <button class="btn btn-custom px-4" type="submit">Upload</button>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for f in data.fest %}
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 border-start border-info border-4">
+                            <div class="bg-light rounded p-4 text-center text-info mb-3" style="height: 120px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fa-solid fa-camera-retro fa-2x opacity-50"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1">{{ f.caption }}</h6>
+                            <small class="text-muted">By {{ f.uploader }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 5. Memes -->
+            <div class="tab-pane fade" id="tab-memes">
+                <div class="card p-4 mb-4 border-start border-success border-4">
+                    <h5 class="fw-bold mb-3 text-success"><i class="fa-solid fa-upload me-1"></i> Drop College Meme</h5>
+                    <form action="/add/memes" method="POST" class="input-group">
+                        <input type="text" name="caption" class="form-control" placeholder="Write funny caption..." required>
+                        <button class="btn btn-custom px-4" type="submit">Post</button>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for m in data.memes %}
+                    <div class="col-md-6">
+                        <div class="card p-3 bg-white border-start border-success border-4">
+                            <h6 class="text-dark fw-bold mb-1">😂 {{ m.caption }}</h6>
+                            <small class="text-muted">Posted by {{ m.uploader }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 6. Mess -->
+            <div class="tab-pane fade" id="tab-mess">
+                <div class="card p-4 mb-4 border-start border-danger border-4">
+                    <h5 class="fw-bold mb-3 text-danger"><i class="fa-solid fa-star me-1"></i> Rate Mess Meal</h5>
+                    <form action="/add/mess_polls" method="POST" class="row g-3">
+                        <div class="col-md-5"><input type="text" name="day" class="form-control" placeholder="Day (e.g., Thursday)" required></div>
+                        <div class="col-md-4"><input type="text" name="meal" class="form-control" placeholder="Dish Name" required></div>
+                        <div class="col-md-2"><input type="number" step="0.1" max="5" name="rating" class="form-control" placeholder="Rating (1-5)" required></div>
+                        <div class="col-md-1"><button class="btn btn-custom w-100" type="submit"><i class="fa-solid fa-check"></i></button></div>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for mp in data.mess_polls %}
+                    <div class="col-md-4">
+                        <div class="card p-3 text-center h-100 border-start border-danger border-4">
+                            <h6 class="text-muted fw-bold">{{ mp.day }}</h6>
+                            <h4 class="fw-bold text-dark my-2">{{ mp.meal }}</h4>
+                            <span class="dynamic-badge fs-6 py-2 px-3 mx-auto mb-2">Rating: {{ mp.rating }} / 5.0 ⭐</span>
+                            <small class="text-muted">{{ mp.votes }} votes</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 7. Bunk Buddy -->
+            <div class="tab-pane fade" id="tab-bunk">
+                <div class="card p-4 mb-4 border-start border-secondary border-4">
+                    <h5 class="fw-bold mb-3 text-secondary"><i class="fa-solid fa-bullhorn me-1"></i> Broadcast Bunk Plan</h5>
+                    <form action="/add/bunk_buddies" method="POST" class="input-group">
+                        <input type="text" name="msg" class="form-control" placeholder="Skipping class? Coffee anyone?" required>
+                        <button class="btn btn-custom px-4" type="submit">Broadcast</button>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for b in data.bunk_buddies %}
+                    <div class="col-md-6">
+                        <div class="card p-3 bg-white border-start border-secondary border-4">
+                            <p class="mb-1 fw-bold text-dark">☕ {{ b.msg }}</p>
+                            <small class="text-muted">By {{ b.poster }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 8. Stationery -->
+            <div class="tab-pane fade" id="tab-stationery">
+                <div class="card p-4 mb-4 border-start border-primary border-4">
+                    <h5 class="fw-bold mb-3 text-primary"><i class="fa-solid fa-plus-circle me-1"></i> Add Stationery Price</h5>
+                    <form action="/add/stationery" method="POST" class="row g-3">
+                        <div class="col-md-4"><input type="text" name="item" class="form-control" placeholder="Item Name" required></div>
+                        <div class="col-md-3"><input type="text" name="shop" class="form-control" placeholder="Shop Name" required></div>
+                        <div class="col-md-2"><input type="number" name="price" class="form-control" placeholder="Price (₹)" required></div>
+                        <div class="col-md-2"><input type="text" name="distance" class="form-control" placeholder="Distance" required></div>
+                        <div class="col-md-1"><button class="btn btn-custom w-100" type="submit"><i class="fa-solid fa-check"></i></button></div>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for s in data.stationery %}
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 border-start border-primary border-4">
+                            <h6 class="fw-bold text-dark">{{ s.item }}</h6>
+                            <p class="text-muted small mb-2">{{ s.shop }} &bull; {{ s.distance }}</p>
+                            <span class="text-primary fw-bold fs-5">₹{{ s.price }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 9. Marketplace -->
+            <div class="tab-pane fade" id="tab-market">
+                <div class="card p-4 mb-4 border-start border-success border-4">
+                    <h5 class="fw-bold mb-3 text-success"><i class="fa-solid fa-circle-plus me-1"></i> List Old Item</h5>
+                    <form action="/add/marketplace" method="POST" class="row g-3">
+                        <div class="col-md-4"><input type="text" name="item" class="form-control" placeholder="Item Name" required></div>
+                        <div class="col-md-3"><input type="text" name="seller" class="form-control" placeholder="Your Name" required></div>
+                        <div class="col-md-2"><input type="number" name="price" class="form-control" placeholder="Price (₹)" required></div>
+                        <div class="col-md-2"><input type="text" name="contact" class="form-control" placeholder="Hostel/Contact" required></div>
+                        <div class="col-md-1"><button class="btn btn-custom w-100" type="submit"><i class="fa-solid fa-check"></i></button></div>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for m in data.marketplace %}
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 border-start border-success border-4">
+                            <h6 class="fw-bold text-dark">{{ m.item }}</h6>
+                            <p class="text-muted small mb-2">Seller: {{ m.seller }} | {{ m.contact }}</p>
+                            <span class="text-success fw-bold fs-5">₹{{ m.price }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 10. Vault -->
+            <div class="tab-pane fade" id="tab-vault">
+                <div class="card p-4 border-start border-dark border-4">
+                    <h5 class="fw-bold mb-3 text-dark"><i class="fa-solid fa-book-bookmark me-1"></i> Verified Notes & PYQs</h5>
+                    <div class="list-group">
+                        {% for v in data.vault %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-3 border-0 border-bottom">
+                            <div>
+                                <h6 class="mb-1 fw-bold">{{ v.subject }}</h6>
+                                <small class="text-muted">Uploaded by {{ v.uploader }}</small>
+                            </div>
+                            <a href="{{ v.link }}" class="btn btn-sm btn-custom">Download</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11. Confessions -->
+            <div class="tab-pane fade" id="tab-confess">
+                <div class="card p-4 mb-4 border-start border-danger border-4">
+                    <h5 class="fw-bold mb-3 text-danger"><i class="fa-solid fa-mask me-1"></i> Anonymous Crush & Confessions Wall</h5>
+                    <form action="/add/confessions" method="POST" class="input-group">
+                        <input type="text" name="text" class="form-control" placeholder="Write anonymous confession..." required>
+                        <button class="btn btn-custom px-4" type="submit">Post</button>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for c in data.confessions %}
+                    <div class="col-md-6">
+                        <div class="card p-3 bg-white border-start border-danger border-4">
+                            <p class="mb-0 text-dark">💌 {{ c.text }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 12. Canteen -->
+            <div class="tab-pane fade" id="tab-canteen">
+                <div class="card p-4 border-start border-warning border-4">
+                    <h5 class="fw-bold mb-3 text-warning"><i class="fa-solid fa-utensils me-1"></i> Canteen Fast Pre-Order</h5>
+                    <div class="row g-3">
+                        {% for cn in data.canteen %}
+                        <div class="col-md-4">
+                            <div class="card p-3 text-center h-100 border-start border-warning border-4">
+                                <h6 class="fw-bold">{{ cn.item }}</h6>
+                                <p class="text-muted small mb-1">Ready in ~{{ cn.time }}</p>
+                                <span class="text-warning fw-bold fs-5 mb-2">₹{{ cn.price }}</span>
+                                <button class="btn btn-sm btn-custom w-100 mt-auto">Pre-Order</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 13. Lost & Found -->
+            <div class="tab-pane fade" id="tab-lost">
+                <div class="card p-4 border-start border-secondary border-4">
+                    <h5 class="fw-bold mb-3 text-secondary"><i class="fa-solid fa-box-archive me-1"></i> Lost & Found Portal</h5>
+                    <div class="list-group">
+                        {% for l in data.lost_found %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center py-3 border-0 border-bottom">
+                            <div>
+                                <span class="badge bg-{% if l.status == 'Lost' %}danger{% else %}success{% endif %} me-2">{{ l.status }}</span>
+                                <strong>{{ l.item }}</strong>
+                                <small class="text-muted d-block">Location: {{ l.location }}</small>
+                            </div>
+                            <button class="btn btn-sm btn-outline-secondary">Claim</button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 14. Hostel Issues -->
+            <div class="tab-pane fade" id="tab-hostel">
+                <div class="card p-4 mb-4 border-start border-danger border-4">
+                    <h5 class="fw-bold mb-3 text-danger"><i class="fa-solid fa-wrench me-1"></i> Hostel Maintenance Ticket</h5>
+                    <form action="/add/hostel_complaints" method="POST" class="row g-3">
+                        <div class="col-md-7"><input type="text" name="issue" class="form-control" placeholder="Issue Description" required></div>
+                        <div class="col-md-4"><input type="text" name="location" class="form-control" placeholder="Room / Location" required></div>
+                        <div class="col-md-1"><button class="btn btn-custom w-100" type="submit"><i class="fa-solid fa-check"></i></button></div>
+                    </form>
+                </div>
+                <div class="list-group">
+                    {% for h in data.hostel_complaints %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center py-3 border-0 border-bottom">
+                        <div>
+                            <h6 class="mb-1 fw-bold">{{ h.issue }}</h6>
+                            <small class="text-muted">{{ h.location }}</small>
+                        </div>
+                        <span class="badge bg-danger">{{ h.status }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 15. Carpool -->
+            <div class="tab-pane fade" id="tab-carpool">
+                <div class="card p-4 mb-4 border-start border-info border-4">
+                    <h5 class="fw-bold mb-3 text-info"><i class="fa-solid fa-car me-1"></i> Campus Auto/Cab Pool</h5>
+                    <form action="/add/carpool" method="POST" class="row g-3">
+                        <div class="col-md-5"><input type="text" name="route" class="form-control" placeholder="Route (e.g., Campus to Station)" required></div>
+                        <div class="col-md-4"><input type="text" name="time" class="form-control" placeholder="Date & Time" required></div>
+                        <div class="col-md-2"><input type="text" name="contact" class="form-control" placeholder="Contact Name" required></div>
+                        <div class="col-md-1"><button class="btn btn-custom w-100" type="submit"><i class="fa-solid fa-check"></i></button></div>
+                    </form>
+                </div>
+                <div class="row g-3">
+                    {% for cp in data.carpool %}
+                    <div class="col-md-6">
+                        <div class="card p-3 border-start border-info border-4">
+                            <h6 class="fw-bold text-dark">{{ cp.route }}</h6>
+                            <p class="text-muted small mb-1"><i class="fa-solid fa-clock me-1"></i>{{ cp.time }}</p>
+                            <span class="text-info small fw-bold">Coordinator: {{ cp.contact }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function setTheme(theme) {
+            const root = document.documentElement;
+            const themes = {
+                'love': { bg: '#fff0f3', nav: 'linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%)', btn: 'linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%)', text: '#4a2e35', accent: '#ff416c', title: 'IGNTU Love & Campus Hub 💖' },
+                'quotes': { bg: '#fffdf0', nav: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', btn: 'linear-gradient(135deg, #f7971e 0%, #ffd200 100%)', text: '#3d3100', accent: '#f7971e', title: 'Professor Wisdom Wall 🎙️' },
+                'midnight': { bg: '#0f172a', nav: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', btn: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)', text: '#f8fafc', accent: '#3b82f6', title: 'Midnight Canteen & Delivery 🌙' },
+                'fest': { bg: '#f0fdf4', nav: 'linear-gradient(135deg, #34d399 0%, #059669 100%)', btn: 'linear-gradient(135deg, #10b981 0%, #047857 100%)', text: '#064e3b', accent: '#10b981', title: 'Fest & Cultural Highlights 📸' },
+                'memes': { bg: '#fef2f2', nav: 'linear-gradient(135deg, #f87171 0%, #dc2626 100%)', btn: 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)', text: '#7f1d1d', accent: '#ef4444', title: 'College Memes & Laughs 😂' },
+                'mess': { bg: '#fff7ed', nav: 'linear-gradient(135deg, #fb923c 0%, #ea580c 100%)', btn: 'linear-gradient(135deg, #f97316 0%, #c2410c 100%)', text: '#7c2d12', accent: '#f97316', title: 'Mess Meal Battleground 🍛' },
+                'bunk': { bg: '#faf5ff', nav: 'linear-gradient(135deg, #c084fc 0%, #9333ea 100%)', btn: 'linear-gradient(135deg, #a855f7 0%, #7e22ce 100%)', text: '#3b0764', accent: '#a855f7', title: 'Bunk Buddies Network ☕' },
+                'stationery': { bg: '#eff6ff', nav: 'linear-gradient(135deg, #60a5fa 100%, #2563eb 0%)', btn: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)', text: '#1e3a8a', accent: '#3b82f6', title: 'Campus Stationery Finder 📚' },
+                'market': { bg: '#f0fdf4', nav: 'linear-gradient(135deg, #4ade80 0%, #16a34a 100%)', btn: 'linear-gradient(135deg, #22c55e 0%, #15803d 100%)', text: '#14532d', accent: '#22c55e', title: 'Student Marketplace 🛒' },
+                'vault': { bg: '#f8fafc', nav: 'linear-gradient(135deg, #64748b 0%, #334155 100%)', btn: 'linear-gradient(135deg, #475569 0%, #1e293b 100%)', text: '#0f172a', accent: '#475569', title: 'Notes & PYQs Vault 📂' },
+                'confess': { bg: '#fff1f2', nav: 'linear-gradient(135deg, #fb7185 0%, #e11d48 100%)', btn: 'linear-gradient(135deg, #f43f5e 0%, #be123c 100%)', text: '#881337', accent: '#f43f5e', title: 'Anonymous Confessions Wall 💌' },
+                'canteen': { bg: '#fefce8', nav: 'linear-gradient(135deg, #facc15 0%, #ca8a04 100%)', btn: 'linear-gradient(135deg, #eab308 0%, #a16207 100%)', text: '#713f12', accent: '#eab308', title: 'Canteen Express Pre-Order 🍔' },
+                'lost': { bg: '#f3f4f6', nav: 'linear-gradient(135deg, #9ca3af 0%, #4b5563 100%)', btn: 'linear-gradient(135deg, #6b7280 0%, #374151 100%)', text: '#111827', accent: '#6b7280', title: 'Lost & Found Center 🔍' },
+                'hostel': { bg: '#fef2f2', nav: 'linear-gradient(135deg, #f87171 0%, #b91c1c 100%)', btn: 'linear-gradient(135deg, #ef4444 0%, #991b1b 100%)', text: '#581c87', accent: '#ef4444', title: 'Hostel Maintenance Hub 🔧' },
+                'carpool': { bg: '#ecfeff', nav: 'linear-gradient(135deg, #38bdf8 0%, #0284c7 100%)', btn: 'linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%)', text: '#042f2e', accent: '#0ea5e9', title: 'Campus Carpool & Auto Share 🚗' }
+            };
+
+            const t = themes[theme] || themes['love'];
+            root.style.setProperty('--bg-color', t.bg);
+            root.style.setProperty('--nav-bg', t.nav);
+            root.style.setProperty('--btn-bg', t.btn);
+            root.style.setProperty('--text-color', t.text);
+            root.style.setProperty('--accent-color', t.accent);
+            document.getElementById('navTitle').innerHTML = `<i class="fa-solid fa-sparkles me-2 text-white"></i>${t.title}`;
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.getElementById('lat').value = position.coords.latitude.toFixed(4);
+                    document.getElementById('lng').value = position.coords.longitude.toFixed(4);
+                }, function(error) {
+                    alert("Unable to retrieve your location. Please enter manually.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</body>
+</html>
